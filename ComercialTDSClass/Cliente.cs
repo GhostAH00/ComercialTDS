@@ -88,9 +88,9 @@ namespace ComercialTDSClass
                             dr.GetString(2),
                             dr.GetString(3),
                             dr.GetString(4),
-                            dr.GetDateTime(4),
                             dr.GetDateTime(5),
-                            dr.GetBoolean(6),
+                            dr.GetDateTime(6),
+                            dr.GetBoolean(7),
                             Endereco.ObterListaPorClienteId(dr.GetInt32(0))
                         );
             }
