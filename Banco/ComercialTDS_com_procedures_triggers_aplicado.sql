@@ -640,9 +640,37 @@ where produto_id = new.produto_id
 ;
 END$$
 
-
 DELIMITER ;
+
+-- SP_NIVEL_INSERT --
+DELIMITER $$
+CREATE PROCEDURE sp_nivel_insert(
+-- atributos
+spnome varchar(45),
+spsigla varchar(45)
+)
+BEGIN
+	-- aqui iniciamos com os comandos internos da procedure
+	insert into niveis (nome, sigla) values (spnome, spsigla);
+    select * FROM niveis where id = last_insert_id();
+END $$
+-- SP_NIVEL_UPDATE --
+DELIMITER $$
+create procedure sp_nivel_update(
+-- atributos
+spid int, 
+spnome varchar(45),
+spsigla varchar(45)
+) 
+begin
+    update niveis set nome = spnome,  sigla = spsigla
+    where id = spid;
+    -- o que a procedure retorna?
+    -- 0, se nenhum registro foi alterado
+    -- 1, se houve alteração de pelo menos um registro
+end $$
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
