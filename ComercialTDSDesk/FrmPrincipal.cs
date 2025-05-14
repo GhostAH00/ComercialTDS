@@ -37,9 +37,17 @@ namespace ComercialTDSDesk
         private void trocarDeUsuárioToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmLogin frmLogin = new();
-            frmLogin.btnCancelar.Text = "&Voltar";            
+            frmLogin.btnCancelar.Text = "&Voltar";
             frmLogin.ShowDialog();
             tsslUsuarioLogado.Text = Program.UsuarioLogado.Nome + " - " + Program.UsuarioLogado.Nivel.Nome;
+        }
+
+        private void niveisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmNivel frmNivel = new();
+            frmNivel.MdiParent = this;
+            frmNivel.Show();
+
         }
     }
 }

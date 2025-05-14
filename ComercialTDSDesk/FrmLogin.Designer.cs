@@ -35,6 +35,7 @@
             chkExibeSenha = new CheckBox();
             label1 = new Label();
             label2 = new Label();
+            button1 = new Button();
             SuspendLayout();
             // 
             // btnEntrar
@@ -105,6 +106,16 @@
             label2.TabIndex = 6;
             label2.Text = "Acesso ao Sistema";
             // 
+            // button1
+            // 
+            button1.Location = new Point(408, 213);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 7;
+            button1.Text = "Info";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // FrmLogin
             // 
             AcceptButton = btnCancelar;
@@ -113,6 +124,7 @@
             BackColor = SystemColors.Control;
             ClientSize = new Size(495, 248);
             ControlBox = false;
+            Controls.Add(button1);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(chkExibeSenha);
@@ -136,5 +148,6 @@
         private CheckBox chkExibeSenha;
         private Label label1;
         private Label label2;
+        private Button button1;
     }
 }
