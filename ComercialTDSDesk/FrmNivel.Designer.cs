@@ -61,6 +61,7 @@
             btnEditar.TabIndex = 1;
             btnEditar.Text = "&Editar";
             btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
             // 
             // btn
             // 
@@ -106,6 +107,7 @@
             dgvNiveis.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvNiveis.Size = new Size(280, 180);
             dgvNiveis.TabIndex = 6;
+            dgvNiveis.CellDoubleClick += dgvNiveis_CellDoubleClick;
             // 
             // clnID
             // 

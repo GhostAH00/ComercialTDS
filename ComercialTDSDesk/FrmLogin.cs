@@ -12,6 +12,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ComercialTDSDesk
 {
@@ -40,7 +41,7 @@ namespace ComercialTDSDesk
             }
             else
             {
-                MessageBox.Show("Email e/o senha incorretos \n ou Usuario não cadastrado.")
+                MessageBox.Show("Email e/o senha incorretos \n ou Usuario não cadastrado.");
                 txtEmail.Focus();
                 txtEmail.SelectAll();
             }
