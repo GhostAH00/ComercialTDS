@@ -15,7 +15,6 @@ namespace ComercialTDSClass
 {
     public class Nivel
     {
-
         public int Id { get; set; }
         public string? Nome { get; set; }
         public string? Sigla { get; set; }

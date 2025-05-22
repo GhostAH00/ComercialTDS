@@ -32,10 +32,6 @@ namespace ComercialTDSDesk
                 tsslUsuarioLogado.Text = Program.UsuarioLogado.Nome + " - " + Program.UsuarioLogado.Nivel.Nome;
             }
             Show();
-
-            // chamada do panel
-
-
         }
         private void AssociaPanel(Form form)
         {
@@ -68,6 +64,16 @@ namespace ComercialTDSDesk
         private void incluirToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             AssociaPanel(new FrmUsuario());
+        }
+
+        private void incluirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AssociaPanel(new FrmProduto());
+        }
+
+        private void listarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AssociaPanel(new FrmProdutoListar());
         }
     }
 }

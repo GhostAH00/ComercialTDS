@@ -11,9 +11,8 @@ namespace ComercialTDSClass
             MySqlCommand cmd = new();
             StrConn = strconn;
             if (StrConn == string.Empty)
-                StrConn = $@"server=10.91.47.35;database=comercialtdsdb01;user=root;password=";
+                StrConn = $@"server=10.91.47.104;database=comercialtdsdb01;user=and;password=543";
             MySqlConnection cn = new(StrConn);
-            //cn.ConnectionString = StrConn;
             try
             {
                 cn.Open();// ao passar por aqui terá uma conexão aberta

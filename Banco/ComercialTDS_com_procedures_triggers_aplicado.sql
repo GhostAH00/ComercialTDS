@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `comercialtdsdb01`.`usuarios` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 1006
+AUTO_INCREMENT = 1001
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -76,11 +76,11 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `comercialtdsdb01`.`categorias` (
   `id` INT(4) NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(40) NOT NULL,
+  `nome` VARCHAR(255) NOT NULL,
   `sigla` CHAR(3) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 246
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `comercialtdsdb01`.`clientes` (
   UNIQUE INDEX `cpf_UNIQUE` (`cpf` ASC) ,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 25
+AUTO_INCREMENT = 10001
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `comercialtdsdb01`.`enderecos` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 24
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -140,10 +140,11 @@ CREATE TABLE IF NOT EXISTS `comercialtdsdb01`.`produtos` (
   `valor_unit` DECIMAL(10,2) NOT NULL,
   `unidade_venda` VARCHAR(12) NOT NULL,
   `categoria_id` INT(4) NOT NULL,
-  `estoque_minimo` DECIMAL(10,2) NOT NULL,
-  `classe_desconto` DECIMAL(10,2) NULL DEFAULT NULL,
+  `estoque_minimo` DECIMAL(10,3) NOT NULL,
+  `classe_desconto` DECIMAL(10,4) NULL DEFAULT NULL,
   `imagem` BLOB NULL DEFAULT NULL,
   `data_cad` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+   `descontinuado` BIT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `idProduto_UNIQUE` (`id` ASC) ,
   UNIQUE INDEX `Produtocol_UNIQUE` (`cod_barras` ASC) ,
@@ -154,7 +155,8 @@ CREATE TABLE IF NOT EXISTS `comercialtdsdb01`.`produtos` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 11
+-- hashcode
+AUTO_INCREMENT = 7400001
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -216,7 +218,7 @@ CREATE TABLE IF NOT EXISTS `comercialtdsdb01`.`pedidos` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 100127
+AUTO_INCREMENT = 100001
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -228,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `comercialtdsdb01`.`itempedido` (
   `pedido_id` INT(11) NOT NULL,
   `produto_id` INT(11) NOT NULL,
   `valor_unit` DECIMAL(10,2) NOT NULL,
-  `quantidade` DECIMAL(10,2) NOT NULL,
+  `quantidade` DECIMAL(10,3) NOT NULL,
   `desconto` DECIMAL(10,2) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_ItemPedido_Pedido1_idx` (`pedido_id` ASC) ,
@@ -244,7 +246,7 @@ CREATE TABLE IF NOT EXISTS `comercialtdsdb01`.`itempedido` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 14
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -283,7 +285,7 @@ CREATE TABLE IF NOT EXISTS `comercialtdsdb01`.`vw_pedido` (`pedido` INT, `client
 
 DELIMITER $$
 USE `comercialtdsdb01`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categoria_delete`(spid int)
+CREATE DEFINER=`and`@`%` PROCEDURE `sp_categoria_delete`(spid int)
 begin
 	delete from categorias
     where id = spid;
@@ -297,7 +299,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `comercialtdsdb01`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categoria_insert`(spnome varchar(40), spsigla char(3))
+CREATE DEFINER=`and`@`%` PROCEDURE `sp_categoria_insert`(spnome varchar(40), spsigla char(3))
 begin
 	insert into categorias
     values(0,spnome,spsigla);
@@ -312,7 +314,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `comercialtdsdb01`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categoria_update`(spid int, spnome varchar(40), spsigla char(3))
+CREATE DEFINER=`and`@`%` PROCEDURE `sp_categoria_update`(spid int, spnome varchar(40), spsigla char(3))
 begin
 	update categorias set nome = spnome, sigla = spsigla
     where id = spid;
@@ -326,7 +328,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `comercialtdsdb01`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_endereco_delete`(spid int)
+CREATE DEFINER=`and`@`%` PROCEDURE `sp_endereco_delete`(spid int)
 begin
 delete from enderecos
 where id = spid;
@@ -340,7 +342,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `comercialtdsdb01`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_endereco_insert`(
+CREATE DEFINER=`and`@`%` PROCEDURE `sp_endereco_insert`(
     spcliente_id int, 
     spcep char(8), 
     splogradouro varchar(100),
@@ -365,7 +367,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `comercialtdsdb01`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_endereco_update`(
+CREATE DEFINER=`and`@`%` PROCEDURE `sp_endereco_update`(
 spid int,
 spcep char(8), 
 splogradouro varchar(100),
@@ -395,7 +397,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `comercialtdsdb01`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cliente_insert`(
+CREATE DEFINER=`and`@`%` PROCEDURE `sp_cliente_insert`(
 spnome varchar(100), 
 spcpf char(11), 
 sptelefone char(14), 
@@ -432,7 +434,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `comercialtdsdb01`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_itempedido_delete`(spid int)
+CREATE DEFINER=`and`@`%` PROCEDURE `sp_itempedido_delete`(spid int)
 begin
 	delete from itempedido
     where id = spid;
@@ -446,7 +448,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `comercialtdsdb01`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_itempedido_insert`(sppedido_id int, spproduto_id int, spquantidade decimal (10,2), spdesconto decimal(10,2))
+CREATE DEFINER=`and`@`%` PROCEDURE `sp_itempedido_insert`(sppedido_id int, spproduto_id int, spquantidade decimal (10,3), spdesconto decimal(10,2))
 begin
 	insert into itempedido
     values (0, sppedido_id, spproduto_id, (select valor_unit from produtos where id = spproduto_id), spquantidade, spdesconto);
@@ -461,7 +463,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `comercialtdsdb01`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_itempedido_update`(spid int,spquantidade decimal(10,2), spdesconto decimal(10,2))
+CREATE DEFINER=`and`@`%` PROCEDURE `sp_itempedido_update`(spid int,spquantidade decimal(10,3), spdesconto decimal(10,2))
 begin
 	update itempedido set quantidade = spquantidade, desconto = spdesconto
     where id = spid;
@@ -475,7 +477,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `comercialtdsdb01`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_pedido_insert`(spusuario_id int, spcliente_id int)
+CREATE DEFINER=`and`@`%` PROCEDURE `sp_pedido_insert`(spusuario_id int, spcliente_id int)
 begin
 	insert into pedidos
     values(0, spusuario_id, spcliente_id,default , 'A', 0);
@@ -490,7 +492,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `comercialtdsdb01`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_pedido_update`(spid int, spstatus char(1), spdesconto decimal(10,2))
+CREATE DEFINER=`and`@`%` PROCEDURE `sp_pedido_update`(spid int, spstatus char(1), spdesconto decimal(10,2))
 begin
 	update pedidos set status = spstatus, desconto = spdesconto
     where id = spid;
@@ -504,14 +506,15 @@ DELIMITER ;
 
 DELIMITER $$
 USE `comercialtdsdb01`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_produto_insert`(
+CREATE DEFINER=`and`@`%` PROCEDURE `sp_produto_insert`(
 spcod_barras varchar(60), 
 spdescricao varchar(60),
 spvalor_unit decimal(10,2),
 spunidade_venda varchar(12),
 spcategoria_id int,
-spestoque_minimo decimal(10,2),
-spclasse_desconto decimal(10,2))
+spestoque_minimo decimal(10,3),
+spclasse_desconto decimal(10,4),
+spimagem blob)
 begin
 	insert into produtos
     values(
@@ -522,8 +525,9 @@ begin
     spunidade_venda,
     spcategoria_id, 
     spestoque_minimo,
-    spclasse_desconto,
-    null,
+    (spclasse_desconto / 100),
+    spimagem, -- adicionando uma imagem
+    default, 
     default);
     select last_insert_id();
 end$$
@@ -536,19 +540,22 @@ DELIMITER ;
 
 DELIMITER $$
 USE `comercialtdsdb01`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_produto_update`(
+CREATE DEFINER=`and`@`%` PROCEDURE `sp_produto_update`(
 spid int,
 spcod_barras varchar(60), 
 spdescricao varchar(60),
 spvalor_unit decimal(10,2),
 spunidade_venda varchar(12),
 spcategoria_id int,
-spestoque_minimo decimal(10,2),
-spclasse_desconto decimal(10,2))
+spestoque_minimo decimal(10,3),
+spclasse_desconto decimal(10,4),
+spimagem blob,
+spdescontinuado bit(1)
+)
 begin
 	update produtos set cod_barras = spcod_barras, descricao = spdescricao,
     valor_unit = spvalor_unit, unidade_venda = spunidade_venda, categoria_id = spcategoria_id,
-    estoque_minimo = spestoque_minimo, classe_desconto = spclasse_desconto
+    estoque_minimo = spestoque_minimo, classe_desconto = (spclasse_desconto / 100), imagem = spimagem, descontinuado = spdescontinuado 
     where id = spid;
 end$$
 
@@ -561,7 +568,7 @@ DELIMITER ;
 DELIMITER $$
 USE `comercialtdsdb01`$$
 -- drop procedure `sp_usuario_altera`
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuario_altera`(
+CREATE DEFINER=`and`@`%` PROCEDURE `sp_usuario_altera`(
 -- parâmetros da procedure
 spid int, spnome varchar(60), spsenha varchar(32), spnivel int)
 begin
@@ -577,7 +584,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `comercialtdsdb01`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuario_insert`(
+CREATE DEFINER=`and`@`%` PROCEDURE `sp_usuario_insert`(
 -- parâmetros da procedure
 spnome varchar(60), spemail varchar(60), spsenha varchar(32), spnivel int)
 begin
@@ -594,7 +601,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `comercialtdsdb01`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_venda_terminal`(spusuario_id int,spcpf char(11), spcodbar varchar(60))
+CREATE DEFINER=`and`@`%` PROCEDURE `sp_venda_terminal`(spusuario_id int,spcpf char(11), spcodbar varchar(60))
 begin
 	insert pedidos values(0,spusuario_id,(select id from clientes where cpf = spcpf), default, 'A', 0);
 		insert itempedido values (
@@ -614,13 +621,13 @@ DELIMITER ;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `comercialtdsdb01`.`vw_pedido`;
 USE `comercialtdsdb01`;
-CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `comercialtdsdb01`.`vw_pedido` AS select `p`.`id` AS `pedido`,`p`.`cliente_id` AS `cliente`,`ip`.`produto_id` AS `produto`,`ip`.`quantidade` AS `quantidade`,`ip`.`valor_unit` AS `valor_item`,`ip`.`desconto` AS `desc_item`,`p`.`desconto` AS `desc_pedido`,`pr`.`cod_barras` AS `cod_barras`,`pr`.`descricao` AS `descricao` from ((`comercialtdsdb01`.`pedidos` `p` join `comercialtdsdb01`.`itempedido` `ip` on(`p`.`id` = `ip`.`pedido_id`)) join `comercialtdsdb01`.`produtos` `pr` on(`ip`.`produto_id` = `pr`.`id`));
+CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`and`@`%` SQL SECURITY DEFINER VIEW `comercialtdsdb01`.`vw_pedido` AS select `p`.`id` AS `pedido`,`p`.`cliente_id` AS `cliente`,`ip`.`produto_id` AS `produto`,`ip`.`quantidade` AS `quantidade`,`ip`.`valor_unit` AS `valor_item`,`ip`.`desconto` AS `desc_item`,`p`.`desconto` AS `desc_pedido`,`pr`.`cod_barras` AS `cod_barras`,`pr`.`descricao` AS `descricao` from ((`comercialtdsdb01`.`pedidos` `p` join `comercialtdsdb01`.`itempedido` `ip` on(`p`.`id` = `ip`.`pedido_id`)) join `comercialtdsdb01`.`produtos` `pr` on(`ip`.`produto_id` = `pr`.`id`));
 USE `comercialtdsdb01`;
 
 DELIMITER $$
 USE `comercialtdsdb01`$$
 CREATE
-DEFINER=`root`@`localhost`
+DEFINER=`and`@`%`
 TRIGGER `comercialtdsdb01`.`trigger_gera_estoque`
 AFTER INSERT ON `comercialtdsdb01`.`produtos`
 FOR EACH ROW
@@ -630,7 +637,7 @@ END$$
 
 USE `comercialtdsdb01`$$
 CREATE
-DEFINER=`root`@`localhost`
+DEFINER=`and`@`%`
 TRIGGER `comercialtdsdb01`.`trigger_baixa_estoque`
 AFTER INSERT ON `comercialtdsdb01`.`itempedido`
 FOR EACH ROW
@@ -639,38 +646,33 @@ update estoques SET quantidade = quantidade - NEW.quantidade, data_ultimo_movime
 where produto_id = new.produto_id
 ;
 END$$
+-- SP_NIVEL_INSERT --
+delimiter $$
+          create procedure comercialtdsdb01.sp_nivel_insert(
+		   spnome varchar(45),
+           spsigla varchar(45)
+)
+begin
+		   insert into niveis(nome, sigla) values (spnome, spsigla);
+           select * from niveis where id = last_insert_id();
+end $$
+
+-- SP_NIVEL_UPDATE --
+delimiter $$
+		    create procedure comercialtdsdb01.sp_nivel_update(
+		    spid int,
+            spnome varchar(45),
+            spsigla varchar(45)
+)
+begin
+   update niveis set nome = spnome, sigla = spsigla 
+   where id = spid;
+end $$
+
+
 
 DELIMITER ;
-
--- SP_NIVEL_INSERT --
-DELIMITER $$
-CREATE PROCEDURE sp_nivel_insert(
--- atributos
-spnome varchar(45),
-spsigla varchar(45)
-)
-BEGIN
-	-- aqui iniciamos com os comandos internos da procedure
-	insert into niveis (nome, sigla) values (spnome, spsigla);
-    select * FROM niveis where id = last_insert_id();
-END $$
--- SP_NIVEL_UPDATE --
-DELIMITER $$
-create procedure sp_nivel_update(
--- atributos
-spid int, 
-spnome varchar(45),
-spsigla varchar(45)
-) 
-begin
-    update niveis set nome = spnome,  sigla = spsigla
-    where id = spid;
-    -- o que a procedure retorna?
-    -- 0, se nenhum registro foi alterado
-    -- 1, se houve alteração de pelo menos um registro
-end $$
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-

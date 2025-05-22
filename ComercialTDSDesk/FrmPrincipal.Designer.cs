@@ -79,7 +79,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { cadastrosToolStripMenuItem, operaçãoToolStripMenuItem, movimentoToolStripMenuItem, conToolStripMenuItem, sairToolStripMenuItem, sairToolStripMenuItem1 });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 24);
+            menuStrip1.Size = new Size(905, 24);
             menuStrip1.TabIndex = 1;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -115,12 +115,14 @@
             incluirToolStripMenuItem.Name = "incluirToolStripMenuItem";
             incluirToolStripMenuItem.Size = new Size(134, 22);
             incluirToolStripMenuItem.Text = "&Incluir";
+            incluirToolStripMenuItem.Click += incluirToolStripMenuItem_Click;
             // 
             // listarToolStripMenuItem
             // 
             listarToolStripMenuItem.Name = "listarToolStripMenuItem";
             listarToolStripMenuItem.Size = new Size(134, 22);
             listarToolStripMenuItem.Text = "&Listar";
+            listarToolStripMenuItem.Click += listarToolStripMenuItem_Click;
             // 
             // fornecedorToolStripMenuItem
             // 
@@ -308,9 +310,9 @@
             // statusStrip1
             // 
             statusStrip1.Items.AddRange(new ToolStripItem[] { tsslUsuarioLogado, toolStripDropDownButton1 });
-            statusStrip1.Location = new Point(0, 428);
+            statusStrip1.Location = new Point(0, 491);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(800, 22);
+            statusStrip1.Size = new Size(905, 22);
             statusStrip1.TabIndex = 2;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -339,9 +341,9 @@
             // 
             // pnlCentral
             // 
-            pnlCentral.Location = new Point(78, 49);
+            pnlCentral.Location = new Point(124, 27);
             pnlCentral.Name = "pnlCentral";
-            pnlCentral.Size = new Size(676, 350);
+            pnlCentral.Size = new Size(676, 342);
             pnlCentral.TabIndex = 4;
             pnlCentral.Visible = false;
             // 
@@ -349,7 +351,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(905, 513);
             Controls.Add(pnlCentral);
             Controls.Add(statusStrip1);
             Controls.Add(menuStrip1);
