@@ -134,7 +134,7 @@ namespace ComercialTDSClass
             cmd.Connection.Close();
             return usuarios;
         }
-        public static Usuario EfatuarLogin(string email, string senha)
+        public static Usuario EfetuarLogin(string email, string senha)
         {
             Usuario usuario = new();
             var cmd = Banco.Abrir();

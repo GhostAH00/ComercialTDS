@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ComercialTDSClass
 {
-    class Estoque
+    public class Estoque
     {
+
     }
 }

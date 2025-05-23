@@ -34,7 +34,7 @@ namespace ComercialTDSDesk
 
         private void btnEntrar_Click(object sender, EventArgs e)
         {
-            Program.UsuarioLogado = Usuario.EfatuarLogin(txtEmail.Text, txtSenha.Text);
+            Program.UsuarioLogado = Usuario.EfetuarLogin(txtEmail.Text, txtSenha.Text);
             if (Program.UsuarioLogado.Id > 0)
             {
                 Close();
