@@ -12,11 +12,12 @@ namespace ComercialTDSClass
         public int Id { get; set; }
         public Usuario Usuario { get; set; }
         public Cliente Cliente { get; set; }
-        public DateTime? Data { get; set; }
-        public string Status { get; set; }
-        public Pedido() { }
+        public DateTime Data { get; set; }
+        public string? Status { get; set; }
         public double Desconto { get; set; }
         public List<ItemPedido> Items { get; set; }
+        public Pedido() { }
+
         public Pedido(int id, Usuario usuario, Cliente cliente, DateTime data, string status, double desconto)
         {
             Id = id;
@@ -37,7 +38,9 @@ namespace ComercialTDSClass
             Status = status;
             Desconto = desconto;
         }
-        public Pedido(int id, Usuario usuario, Cliente cliente, DateTime data, string status, double desconto, List<ItemPedido> items)
+        public Pedido(int id, Usuario usuario,
+            Cliente cliente, DateTime data, string? status,
+            double desconto, List<ItemPedido> items)
         {
             Id = id;
             Usuario = usuario;
@@ -56,8 +59,9 @@ namespace ComercialTDSClass
             cmd.Parameters.AddWithValue("spcliente_id", Cliente.Id);
             Id = Convert.ToInt32(cmd.ExecuteScalar());
             cmd.Connection.Close();
+
         }
-        public bool Atualizar() 
+        public bool Atualizar()
         {
             var cmd = Banco.Abrir();
             cmd.CommandType = CommandType.StoredProcedure;
@@ -69,14 +73,15 @@ namespace ComercialTDSClass
             cmd.Connection.Close();
             return atualizado;
         }
-        public static Pedido ObterPorId(int id) 
+
+        public static Pedido ObterPorId(int id)
         {
-             Pedido pedido = new Pedido();
-             var cmd = Banco.Abrir();
-             cmd.CommandText = $"select * from pedido where id = {id}";
-             var dr = cmd.ExecuteReader();
-             while (true) 
-             {
+            Pedido pedido = new();
+            var cmd = Banco.Abrir();
+            cmd.CommandText = $"select * from pedidos where id = {id}";
+            var dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
                 pedido = new(
                     dr.GetInt32(0),
                     Usuario.ObterPorId(dr.GetInt32(1)),
@@ -84,23 +89,22 @@ namespace ComercialTDSClass
                     dr.GetDateTime(3),
                     dr.GetString(4),
                     dr.GetDouble(5),
-                    ItemPedido.ObterListaPorPedidoId(dr.GetInt32(0))                    
-                );
-            
-             }
-             dr.Close();
-             cmd.Connection.Close();
-             return pedido;
+                    ItemPedido.ObterListaPorPedidoId(dr.GetInt32(0))
+                    );
+            }
+            dr.Close();
+            cmd.Connection.Close();
+            return pedido;
         }
-        public static List<Pedido> ObterLista() 
+        public static List<Pedido> ObterLista()
         {
             List<Pedido> pedidos = new();
             var cmd = Banco.Abrir();
-            cmd.CommandText = $"select * from pedido limit";
+            cmd.CommandText = $"select * from pedidos";
             var dr = cmd.ExecuteReader();
-            while (true)
+            while (dr.Read())
             {
-                pedidos.Add( new(
+                pedidos.Add(new(
                     dr.GetInt32(0),
                     Usuario.ObterPorId(dr.GetInt32(1)),
                     Cliente.ObterPorId(dr.GetInt32(2)),
@@ -109,14 +113,12 @@ namespace ComercialTDSClass
                     dr.GetDouble(5),
                     ItemPedido.ObterListaPorPedidoId(dr.GetInt32(0))
                     )
-                 );
-
+                );
             }
             dr.Close();
             cmd.Connection.Close();
             return pedidos;
         }
-
- 
     }
 }
+

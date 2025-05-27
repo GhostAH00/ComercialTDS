@@ -53,6 +53,7 @@
             dgvProduto.TabIndex = 0;
             dgvProduto.CellClick += dgvProduto_CellClick;
             dgvProduto.CellContentClick += dgvProduto_CellContentClick;
+            dgvProduto.SelectionChanged += dgvProduto_SelectionChanged;
             // 
             // clnId
             // 

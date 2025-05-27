@@ -70,7 +70,6 @@ namespace ComercialTDSClass
             var dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                
                 categorias.Add(new(dr.GetInt32(0), dr.GetString(1), dr.GetString(2)));
             }
             dr.Close();

@@ -55,11 +55,29 @@ namespace ComercialTDSDesk
             cmbCategoria.DisplayMember = "Nome";
             cmbCategoria.ValueMember = "Id";
 
-        }      
+        }
 
         private void nudValorUnit_Enter(object sender, EventArgs e)
         {
             nudValorUnit.Select(0, 9);
+        }
+
+        private void txtCodBarras_TextChanged(object sender, EventArgs e)
+        {
+            if (txtCodBarras.Text.Length > 6)
+            {
+
+            }
+        }
+
+        private void nudEstoqueMinimo_ValueChanged(object sender, EventArgs e)
+        {
+            nudEstoqueMinimo.Select(0, 9);
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

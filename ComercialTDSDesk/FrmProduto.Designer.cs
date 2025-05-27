@@ -63,6 +63,7 @@
             txtCodBarras.PlaceholderText = "Código de Barras";
             txtCodBarras.Size = new Size(200, 23);
             txtCodBarras.TabIndex = 0;
+            txtCodBarras.TextChanged += txtCodBarras_TextChanged;
             // 
             // txtDescricao
             // 
@@ -79,7 +80,7 @@
             nudValorUnit.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
             nudValorUnit.Name = "nudValorUnit";
             nudValorUnit.Size = new Size(100, 23);
-            nudValorUnit.TabIndex = 2;     
+            nudValorUnit.TabIndex = 2;
             nudValorUnit.Enter += nudValorUnit_Enter;
             // 
             // txtUnidadeVenda
@@ -105,6 +106,7 @@
             nudEstoqueMinimo.Name = "nudEstoqueMinimo";
             nudEstoqueMinimo.Size = new Size(100, 23);
             nudEstoqueMinimo.TabIndex = 5;
+            nudEstoqueMinimo.ValueChanged += nudEstoqueMinimo_ValueChanged;
             // 
             // nudClasseDesconto
             // 
@@ -158,6 +160,7 @@
             btnEditar.Size = new Size(150, 35);
             btnEditar.TabIndex = 10;
             btnEditar.Text = "&Editar";
+            btnEditar.Click += btnEditar_Click;
             // 
             // btnCancelar
             // 

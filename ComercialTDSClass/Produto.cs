@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using System.Xml;
+using static System.Net.Mime.MediaTypeNames;
+
 
 namespace ComercialTDSClass
 {
@@ -116,6 +119,7 @@ namespace ComercialTDSClass
             cmd.Connection.Close();
             return produto;
         }
+
         public static Produto ObterPorCodBar(string codBarras)
         {
             Produto produto = new();

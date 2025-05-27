@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Imaging;
 
 namespace ComercialTDSDesk
 {
@@ -47,6 +48,16 @@ namespace ComercialTDSDesk
         }
 
         private void dgvProduto_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var produto = Produto.ObterPorId(Convert.ToInt32(dgvProduto.Rows[dgvProduto.CurrentRow.Index].Cells[0].Value));
+            using (MemoryStream ms = new MemoryStream(produto.Imagem))
+            {
+                picImagem.Image = Image.FromStream(ms);
+                picImagem.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+        }
+
+        private void dgvProduto_SelectionChanged(object sender, EventArgs e)
         {
 
         }
